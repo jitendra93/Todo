@@ -5,4 +5,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="HeadLineOneAppearance" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

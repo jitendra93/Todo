@@ -3,9 +3,8 @@ buildscript {
     ext.kotlin_version = "1.5.21"
     ext.nav_version = "2.3.5"
     repositories {
-        google()
         mavenCentral()
-
+        google()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.2"
@@ -16,12 +15,12 @@ buildscript {
     }
 }
 
-ext.koin_version = "3.1.2"
+ext.koin_version = "2.2.3"
 
 allprojects {
     repositories {
-        google()
         mavenCentral()
+        google()
     }
 }
 
