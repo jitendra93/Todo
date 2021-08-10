@@ -1,10 +1,11 @@
 package com.jitendraalekar.todo
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.jitendraalekar.todo.databinding.TodoEditBinding
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -15,6 +16,11 @@ class EditFragment : Fragment() {
     private lateinit var tododEditBinding: TodoEditBinding
     private val editArgs: EditFragmentArgs by navArgs()
     private val singleModelMotor: SingleModelMotor by viewModel { parametersOf(editArgs.modelId) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,4 +41,50 @@ class EditFragment : Fragment() {
         }
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_save, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (R.id.save) {
+            item.itemId -> {
+                save()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun save() {
+        val model = singleModelMotor.getModel()?.let {
+            it.copy(
+                isCompleted = tododEditBinding.isCompleted.isChecked,
+                description = tododEditBinding.desc.text.toString(),
+                notes = tododEditBinding.note.text.toString()
+            )
+        } ?: ToDoModel(
+            isCompleted = tododEditBinding.isCompleted.isChecked,
+            description = tododEditBinding.desc.text.toString(),
+            notes = tododEditBinding.note.text.toString()
+        )
+
+        singleModelMotor.save(model)
+
+        navToDisplay()
+    }
+
+    private fun navToDisplay() {
+        hideKeyboard()
+        findNavController().popBackStack()
+    }
+
+    private fun hideKeyboard() {
+        view?.let {
+            val imm = context?.getSystemService<InputMethodManager>()
+            imm?.hideSoftInputFromWindow(
+                it.windowToken, InputMethodManager.HIDE_NOT_ALWAYS
+            )
+        }
+    }
 }

@@ -41,7 +41,7 @@ class RosterListFragment : Fragment() {
             )
         }
 
-        todoAdapter.submitList(rosterMotor.items)
+        todoAdapter.submitList(rosterMotor.getItems())
         binding.empty.visibility = View.GONE
     }
 
