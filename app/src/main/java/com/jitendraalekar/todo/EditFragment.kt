@@ -51,9 +51,28 @@ class EditFragment : Fragment() {
         when (R.id.save) {
             item.itemId -> {
                 save()
+                return true
+            }
+        }
+        when (R.id.delete) {
+            item.itemId -> {
+                deleteModel()
+                return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun navigateToList() {
+        hideKeyboard()
+        findNavController().popBackStack(R.id.rosterListFragment, false)
+
+    }
+
+    private fun deleteModel() {
+        singleModelMotor.delete()
+        navigateToList()
+
     }
 
     private fun save() {

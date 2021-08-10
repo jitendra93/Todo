@@ -53,13 +53,22 @@ class DisplayFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (R.id.edit) {
-            item.itemId -> {
+        when (item.itemId) {
+            R.id.edit -> {
                 editModel()
+                return true
+            }
+            R.id.delete -> {
+                findNavController().popBackStack()
+                deleteModel()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteModel() {
+        motor.delete()
     }
 
     fun editModel() {

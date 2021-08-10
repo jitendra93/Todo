@@ -1,9 +1,7 @@
 package com.jitendraalekar.todo
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,6 +14,10 @@ class RosterListFragment : Fragment() {
     val rosterMotor: RosterMotor by viewModel()
     private lateinit var binding: TodoRosterBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,10 +44,30 @@ class RosterListFragment : Fragment() {
         }
 
         todoAdapter.submitList(rosterMotor.getItems())
-        binding.empty.visibility = View.GONE
+        binding.empty.visibility = if (todoAdapter.itemCount > 0) View.GONE else View.VISIBLE
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.actions_roster, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (R.id.add) {
+            item.itemId -> {
+                createModel()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun displayModel(model: ToDoModel) {
         findNavController().navigate(RosterListFragmentDirections.displayModel(model.id))
+    }
+
+    fun createModel() {
+        findNavController().navigate(RosterListFragmentDirections.createModel())
     }
 }

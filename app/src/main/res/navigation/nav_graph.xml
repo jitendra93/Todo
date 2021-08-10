@@ -11,6 +11,9 @@
         <action
             android:id="@+id/displayModel"
             app:destination="@id/displayFragment" />
+        <action
+            android:id="@+id/createModel"
+            app:destination="@id/editFragment" />
     </fragment>
     <fragment
         android:id="@+id/displayFragment"
@@ -29,6 +32,8 @@
         android:label="@string/app_name">
         <argument
             android:name="modelId"
-            app:argType="string" />
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>
