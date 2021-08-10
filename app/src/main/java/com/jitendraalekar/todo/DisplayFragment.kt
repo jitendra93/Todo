@@ -2,10 +2,9 @@ package com.jitendraalekar.todo
 
 import android.os.Bundle
 import android.text.format.DateUtils
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.jitendraalekar.todo.databinding.TodoDisplayBinding
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -17,8 +16,12 @@ class DisplayFragment : Fragment() {
 
     private val args: DisplayFragmentArgs by navArgs()
 
-    private val motor: SingleModelMotor by viewModel { parametersOf(args.id) }
+    private val motor: SingleModelMotor by viewModel { parametersOf(args.modelId) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,5 +45,24 @@ class DisplayFragment : Fragment() {
                 body.text = model.notes
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.edit, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (R.id.edit) {
+            item.itemId -> {
+                editModel()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun editModel() {
+        findNavController().navigate(DisplayFragmentDirections.editModel(modelId = args.modelId))
     }
 }
