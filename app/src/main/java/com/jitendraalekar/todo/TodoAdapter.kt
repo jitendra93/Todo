@@ -9,14 +9,15 @@ import com.jitendraalekar.todo.databinding.TodoRowBinding
 
 class TodoAdapter(
     private val layoutInflater: LayoutInflater,
-    val onCheck: (model: ToDoModel) -> Unit
+    val onCheck: (model: ToDoModel) -> Unit,
+    val onRowClick: (model: ToDoModel) -> Unit
 ) : ListAdapter<ToDoModel, TodoRowViewHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoRowViewHolder {
         return TodoRowViewHolder(TodoRowBinding.inflate(layoutInflater, parent, false))
     }
 
     override fun onBindViewHolder(holder: TodoRowViewHolder, position: Int) {
-        holder.bind(getItem(position), onCheck)
+        holder.bind(getItem(position), onCheck, onRowClick)
     }
 }
 

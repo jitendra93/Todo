@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jitendraalekar.todo.databinding.TodoRosterBinding
@@ -25,10 +26,13 @@ class RosterListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val todoAdapter = TodoAdapter(layoutInflater) {
+        val todoAdapter = TodoAdapter(
+            layoutInflater,
             // lambda as last argument to function
-            rosterMotor.save(it.copy(isCompleted = !it.isCompleted))
-        }
+            onCheck = { rosterMotor.save(it.copy(isCompleted = !it.isCompleted)) },
+            onRowClick = ::displayModel
+        )
+
         binding.items.apply {
             adapter = todoAdapter
             layoutManager = LinearLayoutManager(context)
@@ -39,5 +43,9 @@ class RosterListFragment : Fragment() {
 
         todoAdapter.submitList(rosterMotor.items)
         binding.empty.visibility = View.GONE
+    }
+
+    fun displayModel(model: ToDoModel) {
+        findNavController().navigate(RosterListFragmentDirections.displayModel(model.id))
     }
 }
