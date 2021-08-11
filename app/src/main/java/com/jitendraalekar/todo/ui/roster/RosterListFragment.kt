@@ -1,4 +1,4 @@
-package com.jitendraalekar.todo
+package com.jitendraalekar.todo.ui.roster
 
 import android.os.Bundle
 import android.view.*
@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jitendraalekar.todo.R
 import com.jitendraalekar.todo.databinding.TodoRosterBinding
+import com.jitendraalekar.todo.repo.ToDoModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class RosterListFragment : Fragment() {

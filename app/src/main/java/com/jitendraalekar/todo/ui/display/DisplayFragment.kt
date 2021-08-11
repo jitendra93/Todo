@@ -1,4 +1,4 @@
-package com.jitendraalekar.todo
+package com.jitendraalekar.todo.ui.display
 
 import android.os.Bundle
 import android.text.format.DateUtils
@@ -6,7 +6,9 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.jitendraalekar.todo.R
 import com.jitendraalekar.todo.databinding.TodoDisplayBinding
+import com.jitendraalekar.todo.ui.SingleModelMotor
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 

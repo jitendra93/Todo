@@ -1,4 +1,4 @@
-package com.jitendraalekar.todo
+package com.jitendraalekar.todo.repo
 
 import java.time.Instant
 import java.util.*

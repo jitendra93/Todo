@@ -1,7 +1,8 @@
-package com.jitendraalekar.todo
+package com.jitendraalekar.todo.ui.roster
 
 import androidx.recyclerview.widget.RecyclerView
 import com.jitendraalekar.todo.databinding.TodoRowBinding
+import com.jitendraalekar.todo.repo.ToDoModel
 
 class TodoRowViewHolder(val binding: TodoRowBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(

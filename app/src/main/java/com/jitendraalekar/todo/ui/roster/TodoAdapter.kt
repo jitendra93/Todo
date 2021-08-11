@@ -1,10 +1,11 @@
-package com.jitendraalekar.todo
+package com.jitendraalekar.todo.ui.roster
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.jitendraalekar.todo.databinding.TodoRowBinding
+import com.jitendraalekar.todo.repo.ToDoModel
 
 
 class TodoAdapter(

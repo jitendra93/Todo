@@ -1,6 +1,8 @@
-package com.jitendraalekar.todo
+package com.jitendraalekar.todo.ui
 
 import androidx.lifecycle.ViewModel
+import com.jitendraalekar.todo.ToDoRepository
+import com.jitendraalekar.todo.repo.ToDoModel
 
 class SingleModelMotor(
     private val repo: ToDoRepository,

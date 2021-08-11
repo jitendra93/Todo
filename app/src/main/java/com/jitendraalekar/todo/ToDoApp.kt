@@ -1,6 +1,8 @@
 package com.jitendraalekar.todo
 
 import android.app.Application
+import com.jitendraalekar.todo.ui.SingleModelMotor
+import com.jitendraalekar.todo.ui.roster.RosterMotor
 import org.koin.android.ext.koin.androidLogger
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
