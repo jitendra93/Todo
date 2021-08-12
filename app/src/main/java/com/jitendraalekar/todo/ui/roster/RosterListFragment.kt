@@ -44,9 +44,10 @@ class RosterListFragment : Fragment() {
                 DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
             )
         }
-
-        todoAdapter.submitList(rosterMotor.getItems())
-        binding.empty.visibility = if (todoAdapter.itemCount > 0) View.GONE else View.VISIBLE
+        rosterMotor.states.observe(viewLifecycleOwner) { state ->
+            todoAdapter.submitList(state.items)
+            binding.empty.visibility = if (state.items.isEmpty()) View.GONE else View.VISIBLE
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

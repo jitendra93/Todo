@@ -35,17 +35,19 @@ class DisplayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        motor.find()?.let { model ->
-            binding.apply {
-                isCompleted.visibility = if (model.isCompleted) View.VISIBLE else View.GONE
-                desc.text = model.description
-                createdTime.text = DateUtils.getRelativeDateTimeString(
-                    requireContext(),
-                    model.createdOn.toEpochMilli(), DateUtils.MINUTE_IN_MILLIS,
-                    DateUtils.WEEK_IN_MILLIS, 0
-                )
-                body.text = model.notes
-            }
+        motor.states?.observe(viewLifecycleOwner) {
+            it.item?.let { model ->
+                binding.apply {
+                    isCompleted.visibility = if (model.isCompleted) View.VISIBLE else View.GONE
+                    desc.text = model.description
+                    createdTime.text = DateUtils.getRelativeDateTimeString(
+                        requireContext(),
+                        model.createdOn.toEpochMilli(), DateUtils.MINUTE_IN_MILLIS,
+                        DateUtils.WEEK_IN_MILLIS, 0
+                    )
+                    body.text = model.notes
+                }
+        }
         }
     }
 
@@ -70,7 +72,9 @@ class DisplayFragment : Fragment() {
     }
 
     private fun deleteModel() {
-        motor.delete()
+        motor.states?.value?.item?.let {
+            motor.delete(it)
+        }
     }
 
     fun editModel() {

@@ -35,12 +35,17 @@ class EditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        singleModelMotor.find()?.let { model ->
-            tododEditBinding.apply {
-                isCompleted.isChecked = model.isCompleted
-                desc.setText(model.description)
-                note.setText(model.notes)
+        singleModelMotor.states?.observe(viewLifecycleOwner) {
+            if (savedInstanceState == null) {
+                it.item?.let { model ->
+                    tododEditBinding.apply {
+                        isCompleted.isChecked = model.isCompleted
+                        desc.setText(model.description)
+                        note.setText(model.notes)
+                    }
+                }
             }
+
         }
     }
 
@@ -73,14 +78,14 @@ class EditFragment : Fragment() {
     }
 
     private fun deleteModel() {
-        singleModelMotor.delete()
+        val model = singleModelMotor.states?.value?.item
+        model?.let { singleModelMotor.delete(it) }
         navigateToList()
-
     }
 
     private fun save() {
-        val model = singleModelMotor.getModel()?.let {
-            it.copy(
+        val model = singleModelMotor.states?.value?.let {
+            it.item?.copy(
                 isCompleted = tododEditBinding.isCompleted.isChecked,
                 description = tododEditBinding.desc.text.toString(),
                 notes = tododEditBinding.note.text.toString()
